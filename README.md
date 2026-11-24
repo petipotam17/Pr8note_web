@@ -24,8 +24,8 @@ Le code source complet, les instructions de développement et la création de l'
 
 ## 🔐 Connexion & données
 
-L’écran de connexion redirige réellement vers **MonLycée.net**, **ÉduConnect** ou l’ENT saisi. Un flux **OIDC + PKCE** permet à MonLycée.net de renvoyer la session à Pr8note lorsqu’un client public est autorisé par l’ENT ; sans cette autorisation, le portail s’ouvre mais la session ne revient pas automatiquement.
+L’écran de connexion permet de se connecter avec un **compte élève MonLycée.net** (identifiant et mot de passe), sans administrateur ENT : le serveur Pr8note ouvre la session officielle du portail et ne stocke pas le mot de passe. Un flux **OIDC + PKCE** reste disponible lorsqu’un client public est autorisé par l’ENT. **ÉduConnect** et les autres ENT s’ouvrent via leur portail officiel.
 
 Les notes, devoirs et l’emploi du temps restent des **données de démonstration** : aucune synchronisation PRONOTE n’est effectuée. Les actions (devoirs cochés, messages lus, réglages) sont enregistrées localement dans le navigateur et peuvent être exportées en JSON.
 
-Pr8note n'est pas affilié à Index Éducation ni à PRONOTE.
+Pr8note n'est pas affilié à Index Éducation, PRONOTE ni MonLycée.net.
