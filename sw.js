@@ -1,5 +1,5 @@
 /* Pr8note offline shell — small, safe, cache-first with background refresh. */
-const CACHE = 'pr8note-v1'
+const CACHE = 'pr8note-v2'
 
 self.addEventListener('install', () => {
   self.skipWaiting()

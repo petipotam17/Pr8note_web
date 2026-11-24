@@ -22,8 +22,10 @@ Le code source complet, les instructions de développement et la création de l'
 
 **https://github.com/petipotam17/Pr8note_client**
 
-## 🔐 Données
+## 🔐 Connexion & données
 
-Cette version utilise un **espace de démonstration** avec des données fictives. Aucune connexion réelle à PRONOTE n'est effectuée. Les actions (devoirs cochés, messages lus, réglages) sont enregistrées localement dans le navigateur et peuvent être exportées en JSON.
+L’écran de connexion redirige réellement vers **MonLycée.net**, **ÉduConnect** ou l’ENT saisi. Un flux **OIDC + PKCE** permet à MonLycée.net de renvoyer la session à Pr8note lorsqu’un client public est autorisé par l’ENT ; sans cette autorisation, le portail s’ouvre mais la session ne revient pas automatiquement.
+
+Les notes, devoirs et l’emploi du temps restent des **données de démonstration** : aucune synchronisation PRONOTE n’est effectuée. Les actions (devoirs cochés, messages lus, réglages) sont enregistrées localement dans le navigateur et peuvent être exportées en JSON.
 
 Pr8note n'est pas affilié à Index Éducation ni à PRONOTE.
