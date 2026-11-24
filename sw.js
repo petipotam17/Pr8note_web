@@ -1,5 +1,5 @@
 /* Pr8note offline shell — small, safe, cache-first with background refresh. */
-const CACHE = 'pr8note-v2'
+const CACHE = 'pr8note-v3'
 
 self.addEventListener('install', () => {
   self.skipWaiting()
@@ -20,15 +20,30 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url)
   if (url.origin !== self.location.origin) return
 
+  // Never cache an OAuth callback: codes are single-use and must not be replayed.
+  if (url.searchParams.has('code') || url.searchParams.has('state') || url.searchParams.has('error')) {
+    return
+  }
+
   event.respondWith(
     caches.open(CACHE).then(async (cache) => {
+      if (request.mode === 'navigate') {
+        try {
+          const response = await fetch(request)
+          if (response && response.ok) cache.put(request, response.clone()).catch(() => {})
+          return response
+        } catch {
+          return (await cache.match(request)) || (await cache.match('./index.html')) || Response.error()
+        }
+      }
+
       const cached = await cache.match(request)
       const network = fetch(request)
         .then((response) => {
           if (response && response.ok) cache.put(request, response.clone())
           return response
         })
-        .catch(() => (request.mode === 'navigate' ? cache.match('./index.html') : cached))
+        .catch(() => cached)
       return cached || network
     }),
   )
