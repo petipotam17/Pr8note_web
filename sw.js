@@ -1,5 +1,5 @@
 /* Pr8note offline shell — small, safe, cache-first with background refresh. */
-const CACHE = 'pr8note-v4'
+const CACHE = 'pr8note-v5'
 
 self.addEventListener('install', () => {
   self.skipWaiting()
@@ -29,7 +29,9 @@ self.addEventListener('fetch', (event) => {
     caches.open(CACHE).then(async (cache) => {
       if (request.mode === 'navigate') {
         try {
-          const response = await fetch(request)
+          // Toujours du HTML frais : sinon un index.html en cache peut pointer
+          // vers d'anciens fichiers JS, eux aussi servis depuis le cache.
+          const response = await fetch(request, { cache: 'no-store' })
           if (response && response.ok) cache.put(request, response.clone()).catch(() => {})
           return response
         } catch {
